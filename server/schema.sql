@@ -1,8 +1,28 @@
-CREATE DATABASE chat;
+-- CREATE DATABASE chat;
 
 USE chat;
 
+CREATE TABLE users (
+  ID integer NOT NULL,
+  username text,
+  PRIMARY KEY (ID)
+);
+
+CREATE TABLE rooms (
+  ID integer NOT NULL,
+  roomname text,
+  PRIMARY KEY (ID)
+);
+
 CREATE TABLE messages (
+  ID integer NOT NULL,
+  created_at datetime,
+  text text,
+  id_users integer,
+  id_rooms integer,
+  PRIMARY KEY (ID),
+  FOREIGN KEY (id_users) REFERENCES users(id),
+  FOREIGN KEY (id_rooms) REFERENCES rooms(id)
   /* Describe your table here.*/
 );
 
