@@ -1,6 +1,6 @@
 var express = require('express');
 var db = require('./db');
-var test = require('./test.js')
+var test = require('./test.js');
 
 
 // Middleware

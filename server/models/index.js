@@ -6,10 +6,10 @@ module.exports = {
     get: function () {
       let sql = 'SELECT * FROM messages';
       db.query(sql, (err, res) => {
-        if (err) console.log('didnt work')
-        console.log('worked!!')
-        res.send('Database created...')
-      })
+        if (err) { console.log('didnt work'); }
+        console.log('worked!!');
+        res.send('Database created...');
+      });
     }, // a function which produces all the messages
 
     post: function () {} // a function which can be used to insert a message into the database

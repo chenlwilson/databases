@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
   // database: 'chat'
 });
 connection.connect((err) => {
-  if (err) throw err;
+  if (err) { throw err; }
   console.log('YIPPEEE!');
 });
 
