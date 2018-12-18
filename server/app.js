@@ -1,5 +1,7 @@
 var express = require('express');
 var db = require('./db');
+var test = require('./test.js')
+
 
 // Middleware
 var morgan = require('morgan');
@@ -8,7 +10,14 @@ var parser = require('body-parser');
 // Router
 var router = require('./routes.js');
 
+
+// Create a database connection and export it from this file.
+// You will need to connect with the user "root", no password,
+// and to the database "chat".
+
+
 var app = express();
+
 module.exports.app = app;
 
 // Set what we are listening on.
