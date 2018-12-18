@@ -8,11 +8,11 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   // password: 'password',
-  database: 'chat'
+  // database: 'chat'
 });
 connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
+  if (err) { throw err; }
+  console.log('YIPPEEE!');
 });
 
 exports.connection = connection;

@@ -37,3 +37,12 @@ module.exports = {
   }
 };
 
+
+
+//controllers get/post messages/uses
+
+//models get/post messages/users
+
+//routes that takes controllers
+
+//
