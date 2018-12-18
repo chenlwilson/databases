@@ -1,29 +1,45 @@
+//TODO: need to write out all the mysql queries
+
+//db.connection.query returns an array of result objects
+//e.g. if select * from messages,
+//return [ {id: 1, created_at: ..., text: 'hi', id_users: 1, id_rooms: 2}, {id: 2, ...}, ...]
+
 var db = require('../db');
 
 module.exports = {
+
   messages: {
+
+    // a function which produces all the messages
     get: function () {
-      db.connection.query('SELECT * FROM messages', (err, res, fields) => {
-        if (err) console.log('didnt work')
-        console.log('worked!!')
-      })
-    }, // a function which produces all the messages
+      db.connection.query('SELECT * FROM messages', (err, results) => {
+        if (err) { console.log('didnt work'); }
+        console.log('worked!!');
+      });
+    },
 
-    
+    // a function which can be used to insert a message into the database
+    post: function () {
 
-
-
-    post: function () {} // a function which can be used to insert a message into the database
+    }
   },
 
   users: {
-    // Ditto as above.
-    get: function () {},
-    post: function () {}
+    // a function which produces all the users
+    get: function () {
+
+    },
+
+    // a function which can be used to insert a user into the database
+    post: function () {
+
+    }
   }
 };
 
-
+/*
+====================================
+chatterbox server code:
 
 var obj = {
   results: []
@@ -90,3 +106,4 @@ var requestHandler = function(request, response) {
   }
 
 }
+*/
