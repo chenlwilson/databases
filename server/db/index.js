@@ -11,8 +11,11 @@ const connection = mysql.createConnection({
   database: 'chat'
 });
 connection.connect((err) => {
-  if (err) { throw err; }
-  console.log('YIPPEEE!');
+  if (err) { 
+    throw err; 
+  } else {
+    console.log('YIPPEEE!');
+  }
 });
 
 exports.connection = connection;

@@ -8,7 +8,6 @@ router.get('/', function(req, res){
 used in routes.js:
 router.get('/messages', controller.messages.get);
 */
-console.log('hi controllers');
 var models = require('../models');
 
 var headers = {
@@ -23,44 +22,41 @@ module.exports = {
   // a function which handles a get request for all messages
   messages: {
     get: function (req, res) {
-      console.log(req);
-      console.log(res);
-      models.messages.get(function(err, results) {
-        if (err) { console.log('controller get messages didnt work'); }
+      models.messages.get(function(results) {
         console.log(results);
+        //[ {id: 1, created_at: ..., text: 'hi', id_users: 1, id_rooms: 2}, {id: 2, ...}, ...]
         res.writeHead(200, headers);
         res.end(JSON.stringify({results: results}));
       });
     },
 
     // a function which handles posting a message to the database
+    //req = JSON.stringify({username: message.username, text: message.text, roomname: message.roomname})
     post: function (req, res) {
-      var body = '';
-      console.log('POST REQ');
-      console.log(req);
-      console.log('POST RES');
-      console.log(res);
-      req.on('data', chunk => {
-        body += chunk.toString();
-      });
-      req.on('end', models.messages.post('CRAZY COFFEE', function(err, results) {
-        if (err) { console.log('controller post message didnt work'); }
+      models.messages.post(req.body, function(results) {
         console.log(results);
         res.writeHead(201, headers);
-        res.end(JSON.stringify({results: results}));
-      }));
+        res.end();
+      });
     }
   },
 
   users: {
     // a function which handles a get request for all users
     get: function (req, res) {
-      models.users.get();
+      models.users.get(function(results) {
+        res.writeHead(200, headers);
+        res.end(JSON.stringify({results: results}));
+      });
     },
 
     // a function which handles posting a user to the database
     post: function (req, res) {
-      models.users.post();
+      models.users.post(req.body, function(results) {
+        console.log(results);
+        res.writeHead(201, headers);
+        res.end();
+      });
     }
   }
 };

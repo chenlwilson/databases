@@ -15,34 +15,77 @@ module.exports = {
     get: function (callback) {
       var sqlString = 'SELECT * FROM messages';
       db.connection.query(sqlString, (err, results) => {
-        if (err) { console.log('get messages didnt work'); }
+        if (err) { 
+        console.log('get messages didnt work'); 
+        } else {
         //var worked = callback(results);
         console.log('get messages worked');
         callback(results);
+        }
       });
     },
 
     // a function which can be used to insert a message into the database
     post: function (message, callback) {
-      var sqlString = 'INSERT INTO messages (created_at, text) VALUES = ?)';
-      var sqlArg = ['2018-12-18 17:00:00', message];
+      console.log('in post model')
+      /*{
+          username: 'Valjean',
+          message: 'In mercy\'s name, three days is all I need.',
+          roomname: 'Hello'
+        }
+      */
+      var username = message.username;
+      var text = message.message;
+      var roomname = message.roomname;
+      console.log(text)
+      var sqlString = 'INSERT INTO messages (created_at, text) VALUES (?, ?)';
+      //[{id: 1}]
+      //WHERE department IN (SELECT id FROM rooms WHERE roomname = ?);
+      var sqlArg = ['2018-12-19 09:09:09', text];
+      
       db.connection.query(sqlString, sqlArg, (err, results) => {
-        if (err) { console.log('post message didnt work'); }
-        console.log('post message worked');
-        callback(results);
+        if (err) { 
+          console.log('post message didnt work'); 
+        } else {
+          console.log('This is POST MESSAGE RESULTS: ')
+          console.log(results);
+          callback(results);
+        }
       });
     }
   },
+  // var sqlString = 'INSERT INTO messages (created_at, text, id_user, id_room) VALUES (?, ?, SELECT `id` FROM users WHERE `username` = ' + username + ', SELECT `id` FROM rooms WHERE `roomname` = ' + roomname + ')';
+
 
   users: {
     // a function which produces all the users
-    get: function () {
-
+    get: function (callback) {
+      var sqlString = 'SELECT * FROM users';
+      db.connection.query(sqlString, (err, results) => {
+        if (err) { 
+        console.log('get users didnt work');
+        } else {
+        console.log('get users worked');
+        callback(results);        
+        }
+      });
     },
 
     // a function which can be used to insert a user into the database
-    post: function () {
-
+    post: function (user, callback) {
+      var sqlString = 'INSERT INTO users (username) VALUES (?)';
+      //{id: 1, username: 'Daria'}
+      //input: { username: 'Valjean' }
+      //arg = 'name'
+      var sqlArg = [user.username];
+      db.connection.query(sqlString, sqlArg, (err, results) => {
+        if (err) { 
+          console.log('post user didnt work'); 
+        } else {
+          console.log('post user worked');
+          callback(results);          
+        }
+      });
     }
   }
 };
