@@ -16,18 +16,18 @@ module.exports = {
       var sqlString = 'SELECT * FROM messages';
       db.connection.query(sqlString, (err, results) => {
         if (err) { 
-        console.log('get messages didnt work'); 
+          console.log('get messages didnt work'); 
         } else {
         //var worked = callback(results);
-        console.log('get messages worked');
-        callback(results);
+          console.log('get messages worked');
+          callback(results);
         }
       });
     },
 
     // a function which can be used to insert a message into the database
     post: function (message, callback) {
-      console.log('in post model')
+      console.log('in post model');
       /*{
           username: 'Valjean',
           message: 'In mercy\'s name, three days is all I need.',
@@ -37,7 +37,7 @@ module.exports = {
       var username = message.username;
       var text = message.message;
       var roomname = message.roomname;
-      console.log(text)
+      console.log(text);
       var sqlString = 'INSERT INTO messages (created_at, text) VALUES (?, ?)';
       //[{id: 1}]
       //WHERE department IN (SELECT id FROM rooms WHERE roomname = ?);
@@ -47,7 +47,7 @@ module.exports = {
         if (err) { 
           console.log('post message didnt work'); 
         } else {
-          console.log('This is POST MESSAGE RESULTS: ')
+          console.log('This is POST MESSAGE RESULTS: ');
           console.log(results);
           callback(results);
         }
@@ -63,10 +63,10 @@ module.exports = {
       var sqlString = 'SELECT * FROM users';
       db.connection.query(sqlString, (err, results) => {
         if (err) { 
-        console.log('get users didnt work');
+          console.log('get users didnt work');
         } else {
-        console.log('get users worked');
-        callback(results);        
+          console.log('get users worked');
+          callback(results);        
         }
       });
     },
