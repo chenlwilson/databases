@@ -16,10 +16,11 @@ CREATE TABLE rooms (
 
 CREATE TABLE messages (
   ID integer NOT NULL AUTO_INCREMENT,
-  created_at datetime,
-  text text,
+  created_at text,
+  messages text,
   id_users integer,
   id_rooms integer,
+  roomname text,
   PRIMARY KEY (ID),
   FOREIGN KEY (id_users) REFERENCES users(id),
   FOREIGN KEY (id_rooms) REFERENCES rooms(id)

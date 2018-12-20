@@ -26,7 +26,7 @@ module.exports = {
         console.log(results);
         //[ {id: 1, created_at: ..., text: 'hi', id_users: 1, id_rooms: 2}, {id: 2, ...}, ...]
         res.writeHead(200, headers);
-        res.end(JSON.stringify({results: results}));
+        res.end(JSON.stringify(results));
       });
     },
 
@@ -46,7 +46,7 @@ module.exports = {
     get: function (req, res) {
       models.users.get(function(results) {
         res.writeHead(200, headers);
-        res.end(JSON.stringify({results: results}));
+        res.end(JSON.stringify(results));
       });
     },
 

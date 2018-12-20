@@ -27,21 +27,24 @@ module.exports = {
 
     // a function which can be used to insert a message into the database
     post: function (message, callback) {
-      console.log('in post model');
       /*{
           username: 'Valjean',
           message: 'In mercy\'s name, three days is all I need.',
           roomname: 'Hello'
         }
+
       */
-      var username = message.username;
-      var text = message.message;
-      var roomname = message.roomname;
-      console.log(text);
-      var sqlString = 'INSERT INTO messages (created_at, text) VALUES (?, ?)';
+      // var username = message.username;
+      // var text = message.message;
+      // var roomname = message.roomname;
+        // console.log(message.username);
+        // console.log(message.roomname);
+  
+      var sqlString = `INSERT INTO messages (created_at, messages, id_users, id_rooms) VALUES (?, ?, (SELECT id FROM users WHERE users.username = '${message.username}'), (SELECT id FROM rooms WHERE rooms.roomname = '${message.roomname}'))`;
       //[{id: 1}]
       //WHERE department IN (SELECT id FROM rooms WHERE roomname = ?);
-      var sqlArg = ['2018-12-19 09:09:09', text];
+      var dateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+       var sqlArg = [dateTime, message.message];
       
       db.connection.query(sqlString, sqlArg, (err, results) => {
         if (err) { 
@@ -54,6 +57,7 @@ module.exports = {
       });
     }
   },
+
   // var sqlString = 'INSERT INTO messages (created_at, text, id_user, id_room) VALUES (?, ?, SELECT `id` FROM users WHERE `username` = ' + username + ', SELECT `id` FROM rooms WHERE `roomname` = ' + roomname + ')';
 
 
