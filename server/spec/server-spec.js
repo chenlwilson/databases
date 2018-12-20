@@ -54,8 +54,8 @@ describe('Persistent Node Chat Server', function() {
         var queryArgs = ['new'];
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
-          console.log('results')
-          console.log(results)
+          console.log('results');
+          console.log(results);
           // Should have one result:
           expect(results.length).to.equal(1);
 
@@ -83,7 +83,7 @@ describe('Persistent Node Chat Server', function() {
       // the message we just inserted:
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
         var messageLog = JSON.parse(body);
-        console.log('messageLog')
+        console.log('messageLog');
         console.log(messageLog);
         expect(messageLog[0].messages).to.equal('Men like you can never change!');
         expect(messageLog[0].roomname).to.equal('main');
