@@ -16,7 +16,7 @@ CREATE TABLE rooms (
 
 CREATE TABLE messages (
   ID integer NOT NULL AUTO_INCREMENT,
-  created_at datetime,
+  created_at text,
   text text,
   id_users integer,
   id_rooms integer,
@@ -34,4 +34,3 @@ CREATE TABLE messages (
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
-

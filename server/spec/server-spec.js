@@ -49,8 +49,8 @@ describe('Persistent Node Chat Server', function() {
 
         // TODO: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
-        var queryString = 'SELECT * FROM `messages` INNER JOIN `users` on `messages.user_id` = `users.username` WHERE `users.username` = ?';
-        var queryArgs = ['Valjean'];
+        var queryString = 'SELECT * FROM messages WHERE text = ?';
+        var queryArgs = ['In mercy\'s name, three days is all I need.'];
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
           // Should have one result:
@@ -67,13 +67,13 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = 'SELECT * FROM `messages`';
-    //var queryArgs = ['Men like you can never change!'];
+    var queryString = 'INSERT INTO messages (text, id_users, id_rooms) VALUES (?, (SELECT id from users WHERE username = ? LIMIT 1), SELECT id from rooms WHERE roomname = ? LIMIT 1))';
+    var queryArgs = ['Men like you can never change!', 'Valjean', 'main'];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
 
-    dbConnection.query(queryString, function(err) {
+    dbConnection.query(queryString, queryArgs, function(err) {
       if (err) { throw err; }
 
       // Now query the Node chat server and see if it returns

@@ -13,10 +13,10 @@ module.exports = {
 
     // a function which produces all the messages
     get: function (callback) {
-      var sqlString = 'SELECT * FROM messages';
+      var sqlString = 'SELECT messages.created_at, messages.text, users.username, rooms.roomname FROM messages, users, rooms WHERE messages.id_users = users.id AND messages.id_rooms = rooms.id';
       db.connection.query(sqlString, (err, results) => {
-        if (err) { 
-          console.log('get messages didnt work'); 
+        if (err) {
+          console.log('get messages didnt work');
         } else {
         //var worked = callback(results);
           console.log('get messages worked');
@@ -38,14 +38,14 @@ module.exports = {
       var text = message.message;
       var roomname = message.roomname;
       console.log(text);
-      var sqlString = 'INSERT INTO messages (created_at, text) VALUES (?, ?)';
+      var sqlString = 'INSERT INTO messages (created_at, text, id_users, id_rooms) VALUES (?, ?, (SELECT id FROM users WHERE username = ? LIMIT 1), (SELECT id FROM rooms WHERE roomname = ?))';
       //[{id: 1}]
       //WHERE department IN (SELECT id FROM rooms WHERE roomname = ?);
-      var sqlArg = ['2018-12-19 09:09:09', text];
-      
+      var sqlArg = [Date().toLocaleString(), text, username, roomname];
+
       db.connection.query(sqlString, sqlArg, (err, results) => {
-        if (err) { 
-          console.log('post message didnt work'); 
+        if (err) {
+          console.log('post message didnt work');
         } else {
           console.log('This is POST MESSAGE RESULTS: ');
           console.log(results);
@@ -62,11 +62,11 @@ module.exports = {
     get: function (callback) {
       var sqlString = 'SELECT * FROM users';
       db.connection.query(sqlString, (err, results) => {
-        if (err) { 
+        if (err) {
           console.log('get users didnt work');
         } else {
           console.log('get users worked');
-          callback(results);        
+          callback(results);
         }
       });
     },
@@ -79,14 +79,13 @@ module.exports = {
       //arg = 'name'
       var sqlArg = [user.username];
       db.connection.query(sqlString, sqlArg, (err, results) => {
-        if (err) { 
-          console.log('post user didnt work'); 
+        if (err) {
+          console.log('post user didnt work');
         } else {
           console.log('post user worked');
-          callback(results);          
+          callback(results);
         }
       });
     }
   }
 };
-
