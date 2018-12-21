@@ -1,6 +1,6 @@
 var Parse = {
 
-  server: 'http://127.0.0.1:3000/chatterbox/',
+  server: 'http://127.0.0.1:3000/chatterbox/classes',
 
   create: function(message, successCB, errorCB = null) {
     $.ajax({
