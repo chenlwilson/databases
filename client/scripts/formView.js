@@ -11,8 +11,8 @@ var FormView = {
     var getUsername = $('form')[0].baseURI.split('=');
     var username = getUsername[1];
     var roomname = roomnames[0];
-    var createdAt = new Date();
-    Parse.create({username: username, text: message, roomname: roomname, createdAt: createdAt});
+    // var createdAt = new Date();
+    Parse.create({username: username, text: message, roomname: roomname});
     Parse.readAll();
     // Stop the browser from submitting the form    
     event.preventDefault();

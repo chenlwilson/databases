@@ -33,7 +33,8 @@ module.exports = {
     // a function which handles posting a message to the database
     //req = JSON.stringify({username: message.username, text: message.text, roomname: message.roomname})
     post: function (req, res) {
-      models.messages.post(req.body, function() {
+      models.messages.post(req.body, function(results) {
+        console.log(results);
         res.writeHead(201, headers);
         res.end();
       });
@@ -51,13 +52,14 @@ module.exports = {
 
     // a function which handles posting a user to the database
     post: function (req, res) {
-      models.users.post(req.body, function() {
+      models.users.post(req.body, function(results) {
+        console.log(results);
         res.writeHead(201, headers);
         res.end();
       });
     }
   }
-}
+};
 
 
 
