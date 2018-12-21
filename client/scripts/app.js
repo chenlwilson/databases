@@ -23,17 +23,17 @@ var App = {
     Parse.readAll((data) => {
       console.log(data);
       // examine the response from the server request:
-      for (var i = 0; i < data.results.length; i++) {
+      for (var i = 0; i < data.length; i++) {
 
-       if(data.results[i].text) {
+       if(data[i].text) {
 
-          if((!data.results[i].text.includes(">")) && (!data.results[i].text.includes("<"))) {
-            MessagesView.renderMessage(data.results[i].username, data.results[i].roomname, data.results[i].text, data.results[i].createdAt);
+          if((!data[i].text.includes(">")) && (!data[i].text.includes("<"))) {
+            MessagesView.renderMessage(data[i].username, data[i].roomname, data[i].text, data[i].createdAt);
           }
         }
-          if (data.results[i].roomname && roomnames.indexOf(data.results[i].roomname) === -1) {
-           roomnames.push(data.results[i].roomname)
-            RoomsView.renderRoom(data.results[i].roomname);
+          if (data[i].roomname && roomnames.indexOf(data[i].roomname) === -1) {
+           roomnames.push(data[i].roomname)
+            RoomsView.renderRoom(data[i].roomname);
           }
         }      
         callback();

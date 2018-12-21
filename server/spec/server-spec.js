@@ -68,8 +68,8 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = 'INSERT INTO messages (text, id_users, id_rooms) VALUES (?, (SELECT id from users WHERE username = ? LIMIT 1), (SELECT id from rooms WHERE roomname = ? LIMIT 1))';
-    var queryArgs = ['Men like you can never change!', 'Valjean', 'main'];
+    var queryString = 'INSERT INTO messages (created_at, text, id_users, id_rooms) VALUES (?, ?, (SELECT id from users WHERE username = ? LIMIT 1), (SELECT id from rooms WHERE roomname = ? LIMIT 1))';
+    var queryArgs = [Date().toLocaleString(), 'Men like you can never change!', 'Valjean', 'main'];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
@@ -82,13 +82,26 @@ describe('Persistent Node Chat Server', function() {
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
         var messageLog = JSON.parse(body);
         console.log(messageLog);
+
+        expect(messageLog).to.be.an('array');
+        expect(messageLog[0].created_at).to.not.be.undefined;
+        expect(messageLog[0].username).to.equal('Valjean');
         expect(messageLog[0].text).to.equal('Men like you can never change!');
         expect(messageLog[0].roomname).to.equal('main');
         done();
       });
     });
   });
+
+  
+
+
+
 });    
+
+
+
+
 
 
 
