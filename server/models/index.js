@@ -13,7 +13,7 @@ module.exports = {
 
     // a function which produces all the messages
     get: function (callback) {
-      var sqlString = 'SELECT messages.created_at, messages.text, users.username, rooms.roomname FROM messages, users, rooms WHERE messages.id_users = users.id AND messages.id_rooms = rooms.id';
+      var sqlString = 'SELECT messages.*, users.username, rooms.roomname FROM messages, users, rooms WHERE messages.id_users = users.id AND messages.id_rooms = rooms.id';;
       db.connection.query(sqlString, (err, results) => {
         if (err) {
           console.log('get messages didnt work');
@@ -38,7 +38,7 @@ module.exports = {
       var text = message.message;
       var roomname = message.roomname;
       console.log(text);
-      var sqlString = 'INSERT INTO messages (created_at, text, id_users, id_rooms) VALUES (?, ?, (SELECT id FROM users WHERE username = ? LIMIT 1), (SELECT id FROM rooms WHERE roomname = ?))';
+      var sqlString = 'INSERT INTO messages (created_at, text, id_users, id_rooms) VALUES (?, ?, (SELECT id FROM users WHERE users.username = ? LIMIT 1), (SELECT id FROM rooms WHERE rooms.roomname = ? LIMIT 1))';
       //[{id: 1}]
       //WHERE department IN (SELECT id FROM rooms WHERE roomname = ?);
       var sqlArg = [Date().toLocaleString(), text, username, roomname];
